@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pipe Hydration Predictor</title>
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Hind:300" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="login">
+    <h1>Pipe Hydration Alert</h1>
+
+    <!-- Main Input Form for Receiving Data to our ML Model -->
+    <form action="{{ url_for('predict') }}" method="post">
+      <input type="text" name="inj_name" placeholder="Pipe Name" required="required" />
+      <input type="text" name="inj_time" placeholder="Time (YYYY-MM-DD HH:MM:SS)" required="required" />
+      <input type="text" name="inj_act" placeholder="Injected Gas Instant" required="required" />
+      <input type="text" name="inj_setpt" placeholder="Injected Gas Setpoint" required="required" />
+      <input type="text" name="inj_perc" placeholder="Valve Open (%)" required="required" />
+      
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+    <br><br>
+    <!-- Display the prediction result if available -->
+    {% if prediction_text %}
+      <h2>{{ prediction_text }}</h2>
+    {% endif %}
+  </div>
+</body>
+</html>
