@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import json
+import data_helper
 
 app = Flask(__name__)
 CORS(app)  
@@ -41,9 +42,14 @@ def upload_file():
     if file and file.filename.endswith('.csv'):
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(filepath)
+        data_helper.analyze_data("./uploads/Fearless_709H-10_31-11_07.csv", "/Users/sifatislam/Downloads/PROJECTS/Hack UTD/HackUTD_EOGxPNC/machine-learning/model_95.pkl")
+        print("data helper called")
         return {"message": "File successfully uploaded"}, 200
     else:
         return {"message": "Invalid file type. Only CSV files are allowed."}, 400
+      
+  
+  
 
 
 if __name__ == '__main__':

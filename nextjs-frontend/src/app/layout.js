@@ -25,16 +25,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {/* Wrap your layout with AppProvider to make context accessible */}
         <UserProvider>
           <Header />
-          <BackgroundEffect />
-          <div className="mt-24">
-            {children}
-          </div>
+          <div className="mt-24">{children}</div>
           <Footer />
-      </UserProvider>
+        </UserProvider>
       </body>
     </html>
   );

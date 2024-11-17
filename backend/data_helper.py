@@ -17,7 +17,9 @@ def send_each(src_path, route="http://localhost:5000/api/pipes"): #r0
 
 def analyze_data(csv_src_path, model_pkl_path):
     with open(model_pkl_path, "rb") as f:
+        print("it ran")
         model = pickle.load(f)
+        
     
     # Open the CSV file and save as pandas dataframe
     df = pd.read_csv(csv_src_path)
