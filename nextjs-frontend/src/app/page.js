@@ -1,47 +1,42 @@
 "use client";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Dashboard from "./components/Dashboard";
-import Progress from "./components/Progress";
 
-export default function Home() {
-  const [showDashboard, setShowDashboard] = useState(false);
+export default function UploadCSV() {
+  const [file, setFile] = useState(null);
 
-  const toggleView = () => {
-    setShowDashboard(!showDashboard);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
-  const showHome = () => {
-    setShowDashboard(false);
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert("Please select a file first!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("File uploaded successfully!");
+      } else {
+        alert("File upload failed!");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
 
   return (
-    <div className="flex flex-col items-center w-full mt-8">
-      <AnimatePresence mode="wait">
-        {!showDashboard && (
-          <motion.div
-            key="progress"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="w-full"
-          >
-            <Progress onViewDetails={toggleView} />
-          </motion.div>
-        )}
-        {showDashboard && (
-          <motion.div
-            key="dashboard"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="w-full"
-          >
-            <Dashboard home={showHome}/>
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div>
+      <input type="file" accept=".csv" onChange={handleFileChange} />
+      <button onClick={handleUpload}>Upload CSV</button>
     </div>
   );
 }
