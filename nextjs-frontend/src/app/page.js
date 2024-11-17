@@ -37,6 +37,7 @@ export default function Home() {
     };
   }, []);
   return (
+<<<<<<< HEAD
     <div className="flex flex-col items-center w-full mt-8">
       <motion.div
         initial="hidden"
