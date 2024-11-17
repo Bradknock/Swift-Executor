@@ -1,7 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "./components/Header";
-import BackgroundEffect from "./components/BackgroundEffect";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,9 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Header/>
-
-      <BackgroundEffect/>
+  
       <div className="mt-24">
           {children}
       </div>
